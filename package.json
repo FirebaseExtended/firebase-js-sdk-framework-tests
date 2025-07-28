@@ -14,6 +14,7 @@
     "build:nextjs": "lerna run build --scope js-sdk-framework-tests-nextjs",
     "test:nextjs": "lerna run test --scope js-sdk-framework-tests-nextjs",
     "lint:nextjs": "lerna run lint --scope js-sdk-framework-tests-nextjs",
+    "dev:nextjs": "lerna run dev --scope js-sdk-framework-tests-nextjs",
   
     "setup:angular": "lerna run setup --scope js-sdk-framework-tests-angular",
     "build:angular": "lerna run build --scope js-sdk-framework-tests-angular",

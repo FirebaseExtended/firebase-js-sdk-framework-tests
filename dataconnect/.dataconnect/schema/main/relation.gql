@@ -1,0 +1,37 @@
+extend type Post {
+  """
+  Implicit metadata field that cannot be written. It provides extra information about query results.
+  """
+  _metadata: _Metadata @fdc_generated(from: "Post", purpose: METADATA_FIELD)
+  """
+  ✨ Count the number of rows in the `Post` table.
+  """
+  _count: Int! @fdc_generated(from: "Post", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Post` table where the `description` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  description_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Post.description", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Post` table where the `id` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  id_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Post.id", purpose: QUERY_COUNT)
+  """
+  ✨ Count the number of rows in the `Post` table where the `testId` field is non-null. Pass the `distinct` argument to instead count the number of distinct values.
+  """
+  testId_count(
+    """
+    Set to true to count the number of distinct values.
+    """
+    distinct: Boolean = false
+  ): Int! @fdc_generated(from: "Post.testId", purpose: QUERY_COUNT)
+}

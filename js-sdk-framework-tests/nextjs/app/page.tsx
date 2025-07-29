@@ -55,6 +55,12 @@ export default async function Page() {
           <li><Link href="/tests/auth/web_ssr">Auth Web SDK server-side tests</Link></li>
         </ul>
         <p />
+        <li>Data Connect</li>
+        <ul>
+          <li><Link href="/tests/data_connect/web_client">Data Connect Web SDK client-side tests</Link></li>
+          <li><Link href="/tests/data_connect/web_ssr">Data Connect Web SDK server-side tests</Link></li>
+        </ul>
+        <p />
         <li>Database</li>
         <ul>
           <li><Link href="/tests/database/web_client">Database Web SDK client-side tests</Link></li>

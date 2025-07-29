@@ -16,7 +16,6 @@
  */
 
 import { deleteApp, initializeApp } from 'firebase/app';
-//import { getDatabase, update, off, onValue, ref, remove, set } from 'firebase/database';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, OK_SKIPPED, FAILED } from '@/lib/app_tests/util';

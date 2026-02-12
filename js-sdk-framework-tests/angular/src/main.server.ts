@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 /**
  * @license
  * Copyright 2025 Google LLC
@@ -15,10 +16,10 @@
  * limitations under the License.
  */
 
-import { bootstrapApplication } from '@angular/platform-browser';
+import { bootstrapApplication, BootstrapContext } from '@angular/platform-browser';
 import { App } from './app/app';
 import { config } from './app/app.config.server';
 
-const bootstrap = () => bootstrapApplication(App, config);
+const bootstrap = (context: BootstrapContext) => bootstrapApplication(App, {...config, providers: [provideZoneChangeDetection(), ...config.providers]}, context);
 
 export default bootstrap;

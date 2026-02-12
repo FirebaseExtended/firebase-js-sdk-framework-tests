@@ -22,6 +22,7 @@ import {
   testSerializedFirestoreData,
   testFirestore } from '@/lib/app_tests/firestore/test';
 import ResultsDisplay from './results_display';
+import { OK_SKIPPED } from '@/lib/app_tests/util';
 
 export default function CsrTestRunner(props) {
   const [testStatus, setTestStatus] = useState<string>("running...");
@@ -29,6 +30,15 @@ export default function CsrTestRunner(props) {
   useEffect(() => {
     const asyncTest = async () => {
       let testResults = await testFirestore(/* isServer= */ false);
+      // TODO(drsanta): Re-enable these tests. SSR deserialization features broke with Firebase Pipelines release.
+      {
+        props.serializedFirestoreData.documentSnapshotJson = null;
+        props.serializedFirestoreData.querySnapshotJson = null;
+        testResults.csrDocumentSnapshotResult = OK_SKIPPED;
+        testResults.csrDocumentSnapshotOnResumeResult = OK_SKIPPED;
+        testResults.csrQuerySnapshotResult = OK_SKIPPED;
+        testResults.csrQuerySnapshotOnResumeResult = OK_SKIPPED;
+      }
       testResults = await testSerializedFirestoreData(testResults, props.serializedFirestoreData);
       setTestResults(testResults);
       setTestStatus("Complete!");

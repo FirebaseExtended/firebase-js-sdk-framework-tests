@@ -5,6 +5,10 @@
 
 # NPM Lockfiles
 package-lock.json
+!functions/package-lock.json
+
+# Firebase
+.firebase/
 
 # next.js
 /.next/

@@ -1,0 +1,5 @@
+connectorId: "tests"
+generate:
+  javascriptSdk:
+    outputDir: "../../js-sdk-framework-tests/nextjs/src/lib/app_tests/data_connect/dataconnect-generated/js/tests-connector"
+    packageJsonDir: "../../js-sdk-framework-tests/nextjs"

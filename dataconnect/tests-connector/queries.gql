@@ -1,0 +1,13 @@
+query ListPosts($testId: String!) @auth(level: PUBLIC) {
+  posts(where: { testId: { eq: $testId } }) {
+    id
+    description
+  }
+}
+
+query UnauthorizedQuery @auth(level: NO_ACCESS) {
+  posts {
+    id
+    description
+  }
+}

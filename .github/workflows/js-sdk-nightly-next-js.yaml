@@ -67,9 +67,13 @@ jobs:
       run: yarn setup:nextjs
 
     - name: Build Next.js App
+      env:
+        NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN: ${{ secrets.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN }}
       run: yarn build:nextjs    
 
     - name: Run Next.js tests
+      env:
+        NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN: ${{ secrets.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN }}
       run: yarn test:nextjs
 
     - name: Send email on failure

@@ -20,6 +20,7 @@ export default function ResultsDisplay({ statusString, testResults }) {
     <>
       <h2 title="testStatus">{statusString}</h2>
       <h4 title="initializeAppResult">initializeAppResult: {testResults.initializeAppResult}</h4>
+      <h4 title="initializeAppCheckResult">initializeAppCheckResult: {testResults.initializeAppCheckResult}</h4>
       <h4 title="getAIResult">getAIResult: {testResults.getAIResult}</h4>
       <h4 title="getGenerativeModelResult">getGenerativeModelResult: {testResults.getGenerativeModelResult}</h4>
       <h4 title="startChatResult">startChatResult: {testResults.startChatResult}</h4>

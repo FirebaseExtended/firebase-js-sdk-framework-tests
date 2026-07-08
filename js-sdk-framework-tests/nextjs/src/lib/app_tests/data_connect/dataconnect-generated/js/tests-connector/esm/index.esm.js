@@ -3,7 +3,7 @@ import { queryRef, executeQuery, mutationRef, executeMutation, validateArgs } fr
 export const connectorConfig = {
   connector: 'tests',
   service: 'fdc-service',
-  location: 'us-west2'
+  location: 'us-central1'
 };
 
 export const removePostRef = (dcOrVars, vars) => {

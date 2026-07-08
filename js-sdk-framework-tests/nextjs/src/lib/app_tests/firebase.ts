@@ -17,12 +17,12 @@
 
 // App's Firebase configuration
 export const firebaseConfig = {
-   apiKey: "AIzaSyARXkJLsOrGsb7TCWVS-Aa-LssLWIyAXIc",
-   authDomain: "fir-alf-sdk-ci-5cf53.firebaseapp.com",
-   projectId: "fir-alf-sdk-ci-5cf53",
-   storageBucket: "fir-alf-sdk-ci-5cf53.firebasestorage.app",
-   messagingSenderId: "918519189172",
-   appId: "1:918519189172:web:13dfb6fd222e0541afd1e1"
+   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
+   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN as string,
+   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID as string,
+   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET as string,
+   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID as string,
+   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID as string
 };
 
 

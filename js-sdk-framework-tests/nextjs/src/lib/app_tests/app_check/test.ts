@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { deleteApp, initializeApp } from 'firebase/app';
-import { AppCheckToken, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
+import { ReCaptchaV3Provider, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, FAILED } from '@/lib/app_tests/util';
 
@@ -35,16 +35,38 @@ export function initializeTestResults(): TestResults {
   };
 }
 
-export async function testAppCheck(): Promise<TestResults> {
+export async function testAppCheck(isServer: boolean = false): Promise<TestResults> {
   const result: TestResults = initializeTestResults();
   try {
     const firebaseApp = initializeApp(firebaseConfig);
     if (initializeApp !== null) {
       result.initializeAppResult = OK;
-      const appCheck = initializeAppCheck(firebaseApp, {
-        provider: new CustomProvider({
-          getToken: () => Promise.resolve({ token: 'abcd' } as AppCheckToken)
+
+      const APPCHECK_DEBUG_TOKEN = process.env.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN;
+      if (!APPCHECK_DEBUG_TOKEN) {
+        console.error("APPCHECK_DEBUG_TOKEN is not defined");
+      } else {
+        if (isServer) {
+          (global as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
+          console.log("Server side");
+        } else {
+          (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
+        }
+      }
+
+      const debugAppCheckProvider = isServer
+        ? new CustomProvider({
+          getToken: () => {
+            return Promise.resolve({
+              token: "foo",
+              expireTimeMillis: Date.now() + 5000
+            });
+          },
         })
+        : new ReCaptchaV3Provider("dummy-key-for-debug");
+
+      const appCheck = initializeAppCheck(firebaseApp, {
+        provider: debugAppCheckProvider
       });
       if (appCheck !== null) {
         result.initializeAppCheckResult = OK;

@@ -27,6 +27,7 @@ import {
 } from 'firebase/ai';
 import {
   initializeAppCheck,
+  ReCaptchaV3Provider,
   CustomProvider
 } from "firebase/app-check";
 import { firebaseConfig } from '@/lib/app_tests/firebase';
@@ -111,14 +112,16 @@ export async function testAI(isServer: boolean = false): Promise<TestResults> {
     } else {
       (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
     }
-    const debugAppCheckProvider = new CustomProvider({
-      getToken: () => {
-        return Promise.resolve({
-          token: "foo",
-          expireTimeMillis: Date.now() + 5000
-        });
-      },
-    });
+    const debugAppCheckProvider = isServer
+      ? new CustomProvider({
+        getToken: () => {
+          return Promise.resolve({
+            token: "foo",
+            expireTimeMillis: Date.now() + 5000
+          });
+        },
+      })
+      : new ReCaptchaV3Provider("dummy-key-for-debug");
     initializeAppCheck(firebaseApp, {
       provider: debugAppCheckProvider,
       isTokenAutoRefreshEnabled: false

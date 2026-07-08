@@ -25,7 +25,7 @@ export default function ClientResults() {
   const [testResults, setTestResults] = useState(initializeTestResults());
   useEffect(() => {
     const asyncTest = async () => {
-      setTestResults(await testAppCheck());
+      setTestResults(await testAppCheck(/*isServer=*/false));
       setTestStatus("Complete!");
     }
     asyncTest().catch((e) => {

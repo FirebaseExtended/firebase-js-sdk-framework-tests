@@ -106,12 +106,7 @@ export async function testAI(isServer: boolean = false): Promise<TestResults> {
   if (!APPCHECK_DEBUG_TOKEN) {
     console.error("APPCHECK_DEBUG_TOKEN is not defined");
   } else {
-    if (isServer) {
-      (global as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
-      console.log("Server side");
-    } else {
-      (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
-    }
+    (globalThis as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
     const debugAppCheckProvider = isServer
       ? new CustomProvider({
         getToken: () => {

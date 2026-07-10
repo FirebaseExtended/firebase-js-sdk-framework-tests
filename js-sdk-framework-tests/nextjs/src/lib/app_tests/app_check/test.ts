@@ -38,7 +38,9 @@ export function initializeTestResults(): TestResults {
 export async function testAppCheck(isServer: boolean = false): Promise<TestResults> {
   const result: TestResults = initializeTestResults();
   try {
-    const firebaseApp = initializeApp(firebaseConfig);
+    // Used a named App for FirebaseServerApp testing, which may attempt to reuse
+    // instances of FirebaseApp that have not had AppCheck initialized.
+    const firebaseApp = initializeApp(firebaseConfig, "testAppCheck");
     if (initializeApp !== null) {
       result.initializeAppResult = OK;
 
@@ -46,12 +48,7 @@ export async function testAppCheck(isServer: boolean = false): Promise<TestResul
       if (!APPCHECK_DEBUG_TOKEN) {
         console.error("APPCHECK_DEBUG_TOKEN is not defined");
       } else {
-        if (isServer) {
-          (global as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
-          console.log("Server side");
-        } else {
-          (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
-        }
+        (globalThis as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
       }
 
       const debugAppCheckProvider = isServer

@@ -56,7 +56,7 @@ export async function testAppCheck(isServer: boolean = false): Promise<TestResul
           getToken: () => {
             return Promise.resolve({
               token: "foo",
-              expireTimeMillis: Date.now() + 5000
+              expireTimeMillis: Date.now() + 300000 // 5 minutes.
             });
           },
         })

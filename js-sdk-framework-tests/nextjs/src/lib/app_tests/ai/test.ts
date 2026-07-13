@@ -27,7 +27,7 @@ import {
 } from 'firebase/ai';
 import {
   initializeAppCheck,
-  ReCaptchaV3Provider,
+  ReCaptchaEnterpriseProvider,
   CustomProvider
 } from "firebase/app-check";
 import { firebaseConfig } from '@/lib/app_tests/firebase';
@@ -116,7 +116,7 @@ export async function testAI(isServer: boolean = false): Promise<TestResults> {
           });
         },
       })
-      : new ReCaptchaV3Provider("dummy-key-for-debug");
+      : new ReCaptchaEnterpriseProvider("dummy-key-for-debug");
     initializeAppCheck(firebaseApp, {
       provider: debugAppCheckProvider,
       isTokenAutoRefreshEnabled: false

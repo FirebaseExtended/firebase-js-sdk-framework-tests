@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { deleteApp, initializeApp } from 'firebase/app';
-import { ReCaptchaV3Provider, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
+import { ReCaptchaEnterpriseProvider, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, FAILED } from '@/lib/app_tests/util';
 
@@ -60,7 +60,7 @@ export async function testAppCheck(isServer: boolean = false): Promise<TestResul
             });
           },
         })
-        : new ReCaptchaV3Provider("dummy-key-for-debug");
+        : new ReCaptchaEnterpriseProvider("dummy-key-for-debug");
 
       const appCheck = initializeAppCheck(firebaseApp, {
         provider: debugAppCheckProvider

@@ -1,9 +1,6 @@
 // Force source code update
-const { onRequest, onCall } = require("firebase-functions/v2/https");
-
-const logger = require("firebase-functions/logger");
+const { onCall } = require("firebase-functions/v2/https");
 
 exports.callTest = onCall((request) => {
-  // request.data will contain { data: 'blah' } from the client
   return { word: "hellooo" };
 });

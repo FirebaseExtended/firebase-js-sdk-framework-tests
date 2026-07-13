@@ -18,6 +18,7 @@ import { test, expect } from '@playwright/test';
 
 async function commonExpectations(page) {
   await expect(page.getByTitle('initializeAppResult')).not.toContainText("FAILED");
+  await expect(page.getByTitle('initializeAppCheckResult')).not.toContainText("FAILED");
   await expect(page.getByTitle('getAIResult')).not.toContainText("FAILED");
   await expect(page.getByTitle('getGenerativeModelResult')).not.toContainText("FAILED");
   await expect(page.getByTitle('startChatResult')).not.toContainText("FAILED");

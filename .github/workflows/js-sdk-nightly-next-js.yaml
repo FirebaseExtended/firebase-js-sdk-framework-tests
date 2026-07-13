@@ -34,6 +34,7 @@ jobs:
   nextjs-tests:
     name: Next.js Tests
     runs-on: ubuntu-latest
+    environment: "Nightly Tests"
     
     steps:
     - name: Checkout Repo
@@ -50,12 +51,6 @@ jobs:
       run: yarn install
       working-directory: ./ # Run yarn install from the root
 
-    - name: Write Project Config for Next.js
-      env:
-        PROJECT_CONFIG: ${{ secrets.PROJECT_CONFIG }}
-      run: echo "export const firebaseConfig = $PROJECT_CONFIG;" > src/lib/app_tests/firebase.ts
-      working-directory: ./js-sdk-framework-tests/nextjs
-
     - name: Restore cached playwright browsers
       uses: actions/cache@v4
       with:
@@ -67,9 +62,15 @@ jobs:
       run: yarn setup:nextjs
 
     - name: Build Next.js App
+      env:
+        NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN: ${{ secrets.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN }}
+        NEXT_PUBLIC_FIREBASE_CONFIG: '${{ secrets.NEXT_PUBLIC_FIREBASE_CONFIG }}'
       run: yarn build:nextjs    
 
     - name: Run Next.js tests
+      env:
+        NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN: ${{ secrets.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN }}
+        NEXT_PUBLIC_FIREBASE_CONFIG: '${{ secrets.NEXT_PUBLIC_FIREBASE_CONFIG }}'
       run: yarn test:nextjs
 
     - name: Send email on failure

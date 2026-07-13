@@ -16,8 +16,7 @@
  */
 
 // App's Firebase configuration
-export const firebaseConfig = {
-   /* Paste project data here.
-   *  This will be stored as a GitHub secret when we have admin access to the repo.
-   */
-};
+const configString = process.env.NEXT_PUBLIC_FIREBASE_CONFIG as string;
+export const firebaseConfig = JSON.parse(
+   configString.startsWith('{') ? configString : atob(configString)
+);

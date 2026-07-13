@@ -3,7 +3,7 @@ const { queryRef, executeQuery, mutationRef, executeMutation, validateArgs } = r
 const connectorConfig = {
   connector: 'tests',
   service: 'fdc-service',
-  location: 'us-west2'
+  location: 'us-central1'
 };
 exports.connectorConfig = connectorConfig;
 

@@ -25,11 +25,17 @@ import {
   getGenerativeModel,
   GoogleAIBackend
 } from 'firebase/ai';
+import {
+  initializeAppCheck,
+  ReCaptchaEnterpriseProvider,
+  CustomProvider
+} from "firebase/app-check";
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, FAILED } from '@/lib/app_tests/util';
 
 export type TestResults = {
   initializeAppResult: string,
+  initializeAppCheckResult: string,
   getAIResult: string,
   getGenerativeModelResult: string,
   startChatResult: string,
@@ -43,6 +49,7 @@ export type TestResults = {
 export function initializeTestResults(): TestResults {
   const testAnalyticsResult: TestResults = {
     initializeAppResult: FAILED,
+    initializeAppCheckResult: FAILED,
     getAIResult: FAILED,
     getGenerativeModelResult: FAILED,
     startChatResult: FAILED,
@@ -90,14 +97,32 @@ const commonSystemInstruction: Content = {
 };
 
 export async function testAI(isServer: boolean = false): Promise<TestResults> {
-  if (isServer) {
-    console.log("Server side");
-  }
   const result: TestResults = initializeTestResults();
+
   const firebaseApp = initializeApp(firebaseConfig);
   result.initializeAppResult = OK;
 
-  result.signInAnonymouslyResult = OK;
+  const APPCHECK_DEBUG_TOKEN = process.env.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN;
+  if (!APPCHECK_DEBUG_TOKEN) {
+    console.error("APPCHECK_DEBUG_TOKEN is not defined");
+  } else {
+    (globalThis as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
+    const debugAppCheckProvider = isServer
+      ? new CustomProvider({
+        getToken: () => {
+          return Promise.resolve({
+            token: "foo",
+            expireTimeMillis: Date.now() + 300000 // 5 minutes.
+          });
+        },
+      })
+      : new ReCaptchaEnterpriseProvider("dummy-key-for-debug");
+    initializeAppCheck(firebaseApp, {
+      provider: debugAppCheckProvider,
+      isTokenAutoRefreshEnabled: false
+    });
+    result.initializeAppCheckResult = OK;
+  }
 
   const ai = getAI(firebaseApp, { backend: new GoogleAIBackend() });
   result.getAIResult = OK;

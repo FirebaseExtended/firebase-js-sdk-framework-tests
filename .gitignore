@@ -3,8 +3,9 @@
 /.pnp
 .pnp.js
 
-# NPM Lockfiles
-package-lock.json
+
+# Firebase
+.firebase/
 
 # next.js
 /.next/

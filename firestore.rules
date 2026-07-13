@@ -1,0 +1,16 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow tests to run unauthenticated against specific test collections
+    match /nextJsTestStaticCollection_DoNotDelete/{document=**} {
+      allow read, write;
+    }
+    match /nextJsTestDynamicCollection/{document=**} {
+      allow read, write;
+    }
+    
+    // Deny access to everything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

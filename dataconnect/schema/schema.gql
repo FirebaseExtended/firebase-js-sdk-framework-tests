@@ -1,0 +1,5 @@
+type Post @table {
+  id: UUID! @default(expr: "uuidV4()")
+  description: String!
+  testId: String!
+}

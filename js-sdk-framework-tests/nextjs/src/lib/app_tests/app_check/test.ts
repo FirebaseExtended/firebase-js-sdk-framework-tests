@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 import { deleteApp, initializeApp } from 'firebase/app';
-import { AppCheckToken, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
+import { ReCaptchaEnterpriseProvider, CustomProvider, initializeAppCheck, getToken } from 'firebase/app-check';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, FAILED } from '@/lib/app_tests/util';
 
@@ -35,16 +35,35 @@ export function initializeTestResults(): TestResults {
   };
 }
 
-export async function testAppCheck(): Promise<TestResults> {
+export async function testAppCheck(isServer: boolean = false): Promise<TestResults> {
   const result: TestResults = initializeTestResults();
   try {
-    const firebaseApp = initializeApp(firebaseConfig);
+    // Used a named App for FirebaseServerApp testing, which may attempt to reuse
+    // instances of FirebaseApp that have not had AppCheck initialized.
+    const firebaseApp = initializeApp(firebaseConfig, "testAppCheck");
     if (initializeApp !== null) {
       result.initializeAppResult = OK;
-      const appCheck = initializeAppCheck(firebaseApp, {
-        provider: new CustomProvider({
-          getToken: () => Promise.resolve({ token: 'abcd' } as AppCheckToken)
+
+      const APPCHECK_DEBUG_TOKEN = process.env.NEXT_PUBLIC_CI_APPCHECK_DEBUG_TOKEN;
+      if (!APPCHECK_DEBUG_TOKEN) {
+        console.error("APPCHECK_DEBUG_TOKEN is not defined");
+      } else {
+        (globalThis as any).FIREBASE_APPCHECK_DEBUG_TOKEN = APPCHECK_DEBUG_TOKEN;
+      }
+
+      const debugAppCheckProvider = isServer
+        ? new CustomProvider({
+          getToken: () => {
+            return Promise.resolve({
+              token: "foo",
+              expireTimeMillis: Date.now() + 300000 // 5 minutes.
+            });
+          },
         })
+        : new ReCaptchaEnterpriseProvider("dummy-key-for-debug");
+
+      const appCheck = initializeAppCheck(firebaseApp, {
+        provider: debugAppCheckProvider
       });
       if (appCheck !== null) {
         result.initializeAppCheckResult = OK;

@@ -1,0 +1,11 @@
+specVersion: "v1alpha"
+serviceId: "fdc-service"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdc-service"
+      cloudSql:
+        instanceId: "fdc-service"
+connectorDirs: ["./tests-connector"]

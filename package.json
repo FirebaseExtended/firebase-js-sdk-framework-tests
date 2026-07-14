@@ -22,6 +22,6 @@
     "lint:angular": "lerna run lint --scope js-sdk-framework-tests-angular"
   },
   "devDependencies": {
-    "lerna": "^8.0.0"
+    "lerna": "^9.0.7"
   }
 }

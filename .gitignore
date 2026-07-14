@@ -46,3 +46,6 @@ yarn-error.log*
 
 # dotenv environment variables file
 .env
+
+# NPM Lockfiles
+package-lock.json

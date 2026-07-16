@@ -303,10 +303,10 @@
     tslib "^2.3.0"
     xhr2 "^0.2.0"
 
-"@angular/router@22.0.6":
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-22.0.6.tgz#125d65e01cf15958e8cd5dbb1c5c4e046da62f3b"
-  integrity sha512-s0BErBBadCXlvilob8aWke4H1FRlXDbnDfyYkjW6RkUaGQ4jzeEAzH56KsG2hf8NtBtYwkRlsLfOX9s5sPwm6w==
+"@angular/router@22.0.7":
+  version "22.0.7"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-22.0.7.tgz#f623cbbe580e2ab4b0b8519acd5c98626884c1cd"
+  integrity sha512-uMh+2S5y5Z6hTeFL85tDehfqAwVYjnTlHxpCrW+75RD4Z+rLl0/ff2ag3bXknzNyg0Q9LPOH6t/eCcQYajNOQQ==
   dependencies:
     tslib "^2.3.0"
 

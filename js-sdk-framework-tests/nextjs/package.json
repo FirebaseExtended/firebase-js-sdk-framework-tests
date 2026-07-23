@@ -24,6 +24,6 @@
     "@types/react": "latest",
     "eslint": "^9",
     "eslint-config-next": "latest",
-    "typescript": "5.3.3"
+    "typescript": "6.0.3"
   }
 }

@@ -17,7 +17,7 @@
 
 import { deleteApp, initializeApp } from 'firebase/app';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
-import { getMessaging } from 'firebase/messaging';
+import { getMessaging, isSupported } from 'firebase/messaging';
 import { OK, OK_SKIPPED, FAILED } from '@/lib/app_tests/util';
 
 export type TestResults = {
@@ -50,9 +50,14 @@ export async function testMessaging(isServer: boolean = false): Promise<TestResu
     }
     result.initializeAppResult = OK;
 
-    const messaging = getMessaging(firebaseApp);
-    if (!isServer && messaging || isServer && !messaging) {
-      result.initializeMessagingResult = OK;
+    const supported = await isSupported();
+    if (!supported) {
+      result.initializeMessagingResult = OK_SKIPPED;
+    } else {
+      const messaging = getMessaging(firebaseApp);
+      if (!isServer && messaging || isServer && !messaging) {
+        result.initializeMessagingResult = OK;
+      }
     }
 
     deleteApp(firebaseApp);

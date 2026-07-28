@@ -37,7 +37,8 @@ import {
   updateDoc,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   VectorValue,
-  vector
+  vector,
+  initializeFirestore
 } from 'firebase/firestore';
 import { firebaseConfig } from '@/lib/app_tests/firebase';
 import { OK, FAILED, OK_SKIPPED } from '@/lib/app_tests/util';
@@ -221,7 +222,13 @@ export async function testSerializedFirestoreData(
   serializedFirestoreData: SerializedFirestoreData
 ): Promise<TestResults> {
   const firebase = initializeApp(firebaseConfig);
-  const firestore = getFirestore(firebase);
+  const isBrowser = typeof window !== 'undefined';
+  
+  // Playwright's headless WebKit has a bug that causes Firestore getDocs() WebChannel
+  // streams to hang indefinitely. Forcing long polling bypasses the WebSocket issue.
+  const firestore = isBrowser ? initializeFirestore(firebase, {
+    experimentalForceLongPolling: true
+  }) : getFirestore(firebase);
 
   // DocumentSnapshotTests
   if (serializedFirestoreData.documentSnapshotJson != null) {
@@ -356,7 +363,13 @@ export async function testFirestore(isServer: boolean = false): Promise<TestResu
     }
     result.initializeAppResult = OK;
 
-    const firestore = getFirestore(firebaseApp);
+    const isBrowser = typeof window !== 'undefined';
+    
+    // Playwright's headless WebKit has a bug that causes Firestore getDocs() WebChannel
+    // streams to hang indefinitely. Forcing long polling bypasses the WebSocket issue.
+    const firestore = isBrowser ? initializeFirestore(firebaseApp, {
+      experimentalForceLongPolling: true
+    }) : getFirestore(firebaseApp);
     if (firestore === null) {
       return result;
     }

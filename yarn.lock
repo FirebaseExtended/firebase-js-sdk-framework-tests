@@ -268,10 +268,10 @@
     tslib "^2.3.0"
     zod "^4.0.10"
 
-"@angular/platform-browser@22.0.6":
-  version "22.0.6"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-22.0.6.tgz#b5396408b850d4060b90174bbd9fa35825b14b30"
-  integrity sha512-DyyYRx4jXlfaenf0mwsp9jcIak/c17QCFgJKA7OauSkQnk3dL+voMYEwdigfnTIUdw+2Y9wYDywLeuM6NychNQ==
+"@angular/platform-browser@22.0.8":
+  version "22.0.8"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-22.0.8.tgz#00f73953298d4b5a0596d7a54f16812fffb075ec"
+  integrity sha512-FllGHCayu5Dv82HAA9ORL04Xf+In9JGMbQ1Vn4QnhrAVxBz182vm+ZwszLzRDSAwmfeIjZDeK49tKAcqHR9XNg==
   dependencies:
     tslib "^2.3.0"
 

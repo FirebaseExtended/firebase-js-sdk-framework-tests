@@ -40,7 +40,7 @@
     "@angular/build": "22.1.2",
     "@angular/cli": "22.1.2",
     "@angular/compiler-cli": "22.1.0",
-    "@playwright/test": "1.62.0",
+    "@playwright/test": "1.62.1",
     "@types/express": "5.0.6",
     "@types/jasmine": "~6.0.0",
     "@types/node": "26.1.2",

@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
-    "@types/node": "26.1.2",
+    "@types/node": "26.2.0",
     "@types/react": "latest",
     "eslint": "^9",
     "eslint-config-next": "latest",

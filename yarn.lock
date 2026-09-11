@@ -181,10 +181,10 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/ssr@22.1.4":
-  version "22.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/ssr/-/ssr-22.1.4.tgz#1f1da5b4a77a05ba3a2aa83e0f88d028092325f6"
-  integrity sha512-9F+st3Wu6D1fjXFLMkeuVxSZc6yDnBak/5/lw2nssgQU2/ph5isTOkXRQ8GA5wTZkJGOjQZabctCUx4IOTYs3w==
+"@angular/ssr@22.1.7":
+  version "22.1.7"
+  resolved "https://registry.yarnpkg.com/@angular/ssr/-/ssr-22.1.7.tgz#d64dee348631c75855d917a2c861410ea2eb4ebe"
+  integrity sha512-fX766QHDeiMTIa+D1/OQaCMyW0EKO7nR+hUBcCd9gOcu3dMr3JnugEmLYReCCkQNKRjMmALSs7QS7o+ptrKsKg==
   dependencies:
     tslib "^2.3.0"
 

@@ -6,6 +6,7 @@
 
 # Firebase
 .firebase/
+.dataconnect/
 
 # next.js
 /.next/
